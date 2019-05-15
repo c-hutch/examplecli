@@ -15,4 +15,3 @@ def test_get_logger():
 def test_logger_has_handlers():
     logger = Util().get_logger('test')
     assert logger.hasHandlers()
-
