@@ -1,4 +1,4 @@
-"""Run as CLI"""
+"""Run CLI"""
 import os
 import sys
 import argparse
@@ -10,9 +10,9 @@ from examplecli.examplecli import ExampleCli
 
 def get_args(cli_args):
     """Get the arguments required for the command.  Check for cli args if none supplied
-    then check for env vars.
+    then check for env vars.  Use cli args or env vars, not both.
     :param cli_args: list of cli arguments from sys.argv[1:]
-    :return: an argparse.Namespace containing the parsed arguments
+    :return: dictionary containing the parsed arguments
     """
 
     if len(cli_args) > 1:
@@ -42,6 +42,7 @@ def get_args(cli_args):
         args = vars(parser.parse_args(cli_args))
     else:
         # check for env var settings
+        # TODO: refactor this into a 'LOGLEVEL' envvar with level value i.e LOGLEVEL=DEBUG?
         if os.getenv('VERBOSE'):
             args = {'loglevel': logging.INFO}
         elif os.getenv('DEBUG'):
@@ -67,16 +68,12 @@ def main():
     Main example cli function
     :return: None
     """
-    # logger = Util().get_logger('examplecli')
     logger = get_logger_yaml()
-    try:
-        args = get_args(cli_args=sys.argv[1:])
-        logger.setLevel(args['loglevel'])
-        logger.debug(f'cli args: {args}')
-        ex = ExampleCli()
-        ex.do_something()
-    except Exception as e:
-        logger.exception('Exception occurred')
+    args = get_args(cli_args=sys.argv[1:])
+    logger.setLevel(args['loglevel'])
+    logger.debug(f'cli args: {args}')
+    ex = ExampleCli()
+    ex.do_something()
 
 
 if __name__ == '__main__':

@@ -1,2 +1,1 @@
-# A sample containerized CLI Python app
-
+# A basic example/template for a containerized Python CLI app

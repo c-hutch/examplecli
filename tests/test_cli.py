@@ -66,4 +66,3 @@ def test_get_args_extra_args_cli():
     cli_args = ['-v', '-t', 'Test Text', 'Too Many args']
     with pytest.raises(SystemExit) as e:
         cli.get_args(cli_args=cli_args)
-
