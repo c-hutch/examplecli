@@ -1,2 +1,2 @@
-# A sample CLI Python app
+# A sample containerized CLI Python app
 

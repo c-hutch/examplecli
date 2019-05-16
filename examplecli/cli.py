@@ -2,56 +2,64 @@
 import os
 import sys
 import argparse
-import logging
+import logging.config
+import yaml
 
-from examplecli.util import Util
 from examplecli.examplecli import ExampleCli
 
 
 def get_args(cli_args):
-    """Get the arguments required for the command.  Check for cli args first, if none supplied
+    """Get the arguments required for the command.  Check for cli args if none supplied
     then check for env vars.
     :param cli_args: list of cli arguments from sys.argv[1:]
     :return: an argparse.Namespace containing the parsed arguments
     """
 
-    print(f'sys argv is {sys.argv[0]}')
     if len(cli_args) > 1:
         # cli arguments provided
         parser = argparse.ArgumentParser()
-        level_group = parser.add_mutually_exclusive_group()
-        level_group.add_argument('-v', '--verbose', action='store_true')
-        level_group.add_argument('-q', '--quiet', action='store_true')
-        parser.add_argument('-t', '--text', default='default text', help='increase output verbosity')
+        parser.add_argument('-d', '--debug',
+                            action="store_const",
+                            dest="loglevel",
+                            const=logging.DEBUG,
+                            default=logging.WARNING,
+                            help='show debug messages',
+                            )
+        parser.add_argument('-v', '--verbose',
+                            action="store_const",
+                            dest="loglevel",
+                            const=logging.INFO,
+                            help='show informational messages',
+                            )
+        parser.add_argument('-q', '--quiet',
+                            action="store_const",
+                            dest="loglevel",
+                            const=logging.ERROR,
+                            help='show error messages only',
+                            )
+        parser.add_argument('-t', '--text', default='default text', help='example text argument for the app')
+
         args = vars(parser.parse_args(cli_args))
     else:
         # check for env var settings
-        args = {'verbose': os.getenv('VERBOSE', False),
-                'quiet': os.getenv('QUIET', False),
-                'text': os.getenv('TEXT', 'default text'),
-                }
+        if os.getenv('VERBOSE'):
+            args = {'loglevel': logging.INFO}
+        elif os.getenv('DEBUG'):
+            args = {'loglevel': logging.DEBUG}
+        elif os.getenv('QUIET'):
+            args = {'loglevel': logging.ERROR}
+        else:
+            args = {'loglevel': logging.WARNING}
+        args['text'] = os.getenv('TEXT', 'default text')
+
     return args
 
 
-def get_env_args():
-    """Check environment variables for arguments, used for running in a container"""
-
-
-def set_logger_level(logger, args):
-    """
-    Set the logging level
-    :param logger: The base logger
-    :param args: dict containing arguments
-    :return: None
-    """
-
-    if args['verbose']:
-        logger.setLevel(logging.DEBUG)
-        logger.debug('verbose logging enabled')
-    elif args['quiet']:
-        logger.setLevel(logging.ERROR)
-    else:
-        logger.setLevel(logging.WARNING)
+def get_logger_yaml():
+    with open('logconfig.yaml', 'rt') as f:
+        config = yaml.safe_load(f.read())
+    logging.config.dictConfig(config)
+    return logging.getLogger('examplecli')
 
 
 def main():
@@ -59,12 +67,12 @@ def main():
     Main example cli function
     :return: None
     """
-    logger = Util().get_logger(__name__)
-    logger.debug('main entered')
+    # logger = Util().get_logger('examplecli')
+    logger = get_logger_yaml()
     try:
         args = get_args(cli_args=sys.argv[1:])
-        logger.debug(args)
-        set_logger_level(logger, args)
+        logger.setLevel(args['loglevel'])
+        logger.debug(f'cli args: {args}')
         ex = ExampleCli()
         ex.do_something()
     except Exception as e:

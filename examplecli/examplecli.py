@@ -9,3 +9,5 @@ class ExampleCli:
 
     def do_something(self):
         self.logger.debug('do_something called')
+
+
