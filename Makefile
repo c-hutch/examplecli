@@ -5,7 +5,15 @@ APPNAME = $(shell basename $(CURDIR))
 donothing:
 	# TODO: Implement help as make default
 
+rename:
+	find ./tests -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
+	find ./examplecli -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
+	sed -i "s/examplecli/$(APPNAME)/g" Dockerfile
+	mv examplecli/examplecli.py examplecli/$(APPNAME).py	
+	mv examplecli $(APPNAME)
+
 setup:
+	# TODO: add markdown to explain git clone with a new name to start a new project
 	rm -rf venv
 	virtualenv venv
 	. venv/bin/activate; pip install --upgrade pip
