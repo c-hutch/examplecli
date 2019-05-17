@@ -13,7 +13,7 @@ handlers:
     file_handler:
         class: logging.FileHandler
         formatter: simple
-        filename: examplelci.log
+        filename: examplecli.log
 
 loggers:
     examplecli:

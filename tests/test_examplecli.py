@@ -1,6 +1,6 @@
-from examplecli.examplecli import ExampleCli
+from examplecli.examplecli import MyClass
 
 
 def test_constructor():
-    cli = ExampleCli()
-    assert isinstance(cli, ExampleCli)
+    cli = MyClass()
+    assert isinstance(cli, MyClass)

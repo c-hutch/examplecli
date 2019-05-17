@@ -5,17 +5,17 @@ import argparse
 import logging.config
 import yaml
 
-from examplecli.examplecli import ExampleCli
+from examplecli.examplecli import MyClass
 
 
 def get_args(cli_args):
     """Get the arguments required for the command.  Check for cli args if none supplied
     then check for env vars.  Use cli args or env vars, not both.
-    :param cli_args: list of cli arguments from sys.argv[1:]
+    :param cli_args: list of cli arguments from sys.argv[0:]
     :return: dictionary containing the parsed arguments
     """
 
-    if len(cli_args) > 1:
+    if len(cli_args) > 0:
         # cli arguments provided
         parser = argparse.ArgumentParser()
         parser.add_argument('-d', '--debug',
@@ -69,10 +69,10 @@ def main():
     :return: None
     """
     logger = get_logger_yaml()
-    args = get_args(cli_args=sys.argv[1:])
-    logger.setLevel(args['loglevel'])
-    logger.debug(f'cli args: {args}')
-    ex = ExampleCli()
+    cli_args = get_args(cli_args=sys.argv[1:])
+    logger.setLevel(cli_args['loglevel'])
+    logger.debug(f'log level set: {logger.getEffectiveLevel()}')
+    ex = MyClass(**cli_args)
     ex.do_something()
 
 
