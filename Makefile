@@ -9,7 +9,8 @@ rename:
 	find ./tests -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
 	find ./examplecli -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
 	sed -i "s/examplecli/$(APPNAME)/g" Dockerfile
-	mv examplecli/examplecli.py examplecli/$(APPNAME).py	
+	sed -i "s/examplecli/$(APPNAME)/g" logconfig.yaml
+	mv examplecli/examplecli.py examplecli/$(APPNAME).py
 	mv examplecli $(APPNAME)
 
 setup:
