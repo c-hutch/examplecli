@@ -25,5 +25,5 @@ make run
 #### dockerbuild builds the app as a Docker container (Docker must be installed https://docs.docker.com/install/)
 make dockerbuild
 
-#### dockerrun launchs the docker image and executes the cli app
+#### dockerrun launches the docker image and executes the cli app
 make dockerrun
