@@ -21,7 +21,7 @@ setup:
 	. venv/bin/activate; pip install -r requirements-dev.txt
 
 test:
-	python -m pytest -v tests
+	tox
 
 run:
 	python -m $(APPNAME).cli -d
