@@ -2,9 +2,9 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.4
 jobs:
-  py36:
+  build:
     docker:
-      - image: python:3.7.3-alpine3.9
+      - image: themattrix/tox
     steps:
       - checkout
       - run:
@@ -18,26 +18,3 @@ jobs:
           path: htmlcov
       - codecov/upload:
           file: htmlcov/index.html
-  py37:
-    docker:
-      - image: python:3.6-alpine3.9
-    steps:
-      - checkout
-      - run:
-          name: Install Python deps in a venv
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements-dev.txt
-            tox
-      - store_artifacts:
-          path: htmlcov
-      - codecov/upload:
-          file: htmlcov/index.html
-
-workflows:
-  version: 2.1
-  build-and-test:
-    jobs:
-      - py36
-      - py37
