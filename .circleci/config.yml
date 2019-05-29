@@ -36,9 +36,7 @@ jobs:
           file: htmlcov/index.html
 workflows:
   version: 2.1
-  build-and-deploy:
-    jobs:
-      build-and-test:
-        jobs:
-          - py36
-          - py37
+    build-and-test:
+      jobs:
+        - py36
+        - py37
