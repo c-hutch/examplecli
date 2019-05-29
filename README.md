@@ -1,6 +1,7 @@
 # A basic example/template for a containerized Python CLI app
 
 [![CircleCI](https://circleci.com/gh/c-hutch/examplecli/tree/master.svg?style=svg&circle-token=fb21845166107a67e3f1b983b42f90f7f9387a6f)](https://circleci.com/gh/c-hutch/examplecli/tree/master)
+[![codecov](https://codecov.io/gh/c-hutch/examplecli/branch/master/graph/badge.svg)](https://codecov.io/gh/c-hutch/examplecli)
 
 
 ## To make a new app
