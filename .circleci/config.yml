@@ -34,9 +34,10 @@ jobs:
           path: htmlcov
       - codecov/upload:
           file: htmlcov/index.html
+
 workflows:
   version: 2.1
-    build-and-test:
-      jobs:
-        - py36
-        - py37
+  build-and-test:
+    jobs:
+      - py36
+      - py37
