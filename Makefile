@@ -33,7 +33,7 @@ dockerrun:
 	docker run -it --rm -e DEBUG=True --name $(APPNAME) $(APPNAME)
 
 dockerbash:
-	docker run -it $(APPNAME) /bin/bash
+	docker run -it $(APPNAME) /bin/ash
 
 dockerrunargs:
 	docker run -it --rm  -e DEBUG=True --name $(APPNAME) $(APPNAME)

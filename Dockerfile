@@ -7,8 +7,7 @@ ENV PATH "${PATH}:/usr/src/app"
 ENV PYTHONPATH /usr/src/app
 
 COPY requirements.txt logconfig.yaml ./
-RUN pip install --no-cache-dir -r requirements.txt \
-    apk add --no-cache bash
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./examplecli ./examplecli
 
