@@ -4,7 +4,6 @@ isort==4.3.19
 lazy-object-proxy==1.4.1
 mccabe==0.6.1
 more-itertools==7.0.0
-pluggy==0.11.0
 py==1.8.0
 PyYAML==5.1
 six==1.12.0
