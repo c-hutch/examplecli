@@ -9,6 +9,6 @@ ENV PYTHONPATH /usr/src/app
 COPY requirements.txt logconfig.yaml ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./examplecli ./examplecli
+COPY app ./app
 
-CMD [ "python", "-m", "examplecli.cli"]
+CMD [ "python", "app/main.py"]

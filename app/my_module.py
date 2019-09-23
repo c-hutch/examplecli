@@ -2,7 +2,7 @@
 import logging
 
 
-class MyClass:
+class MyWork:
     def __init__(self, **kwargs):
         self.logger = logging.getLogger(__name__)
         self.kwargs = kwargs

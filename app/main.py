@@ -5,7 +5,7 @@ import argparse
 import logging.config
 import yaml
 
-from examplecli.examplecli import MyClass
+import my_module
 
 
 def get_args(cli_args):
@@ -83,8 +83,8 @@ def main():
     cli_args = get_args(cli_args=sys.argv[1:])
     logger.setLevel(cli_args["loglevel"])
     logger.debug(f"log level set: {logger.getEffectiveLevel()}")
-    ex = MyClass(**cli_args)
-    ex.do_something()
+    work = my_module.MyWork(**cli_args)
+    work.do_something()
 
 
 if __name__ == "__main__":

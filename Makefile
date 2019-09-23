@@ -5,13 +5,13 @@ APPNAME = $(shell basename $(CURDIR))
 donothing:
 	# TODO: Implement help as make default
 
-rename:
-	find ./tests -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
-	find ./examplecli -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
-	sed -i "s/examplecli/$(APPNAME)/g" Dockerfile
-	sed -i "s/examplecli/$(APPNAME)/g" logconfig.yaml
-	mv examplecli/examplecli.py examplecli/$(APPNAME).py
-	mv examplecli $(APPNAME)
+#rename:
+#	find ./tests -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
+#	find ./examplecli -name '*.py' -type f -exec sed -i "s/examplecli/$(APPNAME)/g" {} +
+#	sed -i "s/examplecli/$(APPNAME)/g" Dockerfile
+#	sed -i "s/examplecli/$(APPNAME)/g" logconfig.yaml
+#	mv examplecli/examplecli.py examplecli/$(APPNAME).py
+#	mv examplecli $(APPNAME)
 
 setup:
 	# TODO: add markdown to explain git clone with a new name to start a new project
@@ -25,7 +25,7 @@ test:
 	tox
 
 run:
-	python -m $(APPNAME).cli -d
+	python app/main.py -d
 
 dockerbuild:
 	docker build -t $(APPNAME) .
